@@ -15,12 +15,12 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="\index" class="nav-item nav-link"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+            <a href="\admin" class="nav-item nav-link"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
             <a href="\user" class="nav-item nav-link"><i class="bi bi-person-badge me-2"></i>Data Pasien</a>
             <a href="\penyakit" class="nav-item nav-link"><i class="bi bi-clipboard-plus me-2"></i>Data Penyakit</a>
             <a href="\gejala" class="nav-item nav-link"><i class="bi bi-clipboard-plus me-2"></i>Data Gejala</a>
-            <a href="\pengetahuan" class="nav-item nav-link"><i class="bi bi-pencil-square me-2"></i>Pengetahuan</a>
-            <a href="\artikel" class="nav-item nav-link"><i class="bi bi-newspaper me-2"></i>Artikel</a>
+            <a href="\rule" class="nav-item nav-link"><i class="bi bi-pencil-square me-2"></i>Rule</a>
+            <a href="\riwayat" class="nav-item nav-link"><i class="bi bi-journal-check me-2"></i>Riwayat Diagnosa</a>
         </div>
     </nav>
  </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penyakit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class PenyakitController extends Controller
@@ -21,9 +22,9 @@ class PenyakitController extends Controller
     }
 
     public function infoPenyakit() {
-        $info = Penyakit::orderBy('penyakit', 'asc')->get();
+        $info = Penyakit::orderBy('penyakit', 'asc')->take(4)->get();
         return view('user.infopenyakit', [
-            'questions' => $info
+            'info' => $info
         ]);
     }
 
@@ -45,17 +46,63 @@ class PenyakitController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'kode_penyakit' => 'required',
-            'penyakit' => 'required',
-            'penyebab' => 'required',
-            'solusi' => 'required'
-        ]);
+        // $this->validate($request, [
 
-        Penyakit::create($request->all());
+        //     'kode_penyakit' => 'required',
+        //     'image'     => 'required|image|mimes:png,jpg,jpeg',
+        //     'penyakit' => 'required',
+        //     'penyebab' => 'required',
+        //     'solusi' => 'required',
+        // ]);
 
-        return redirect()->route('penyakit.index')->with('succes','Penyakit Berhasil di Input');
+        // //upload image
+        // $image = $request->file('image');
+        // $image->storeAs('public/penyakit', $image->hashName());
+
+        // $penyakit = Penyakit::create([
+        //     'kode_penyakit' => $request->kode_penyakit,
+        //     'image'     => $image->hashName(),
+        //     'penyakit' => $request->penyakit,
+        //     'penyebab' => $request->penyebab,
+        //     'solusi' => $request->solusi
+        // ]);
+
+        // if($penyakit){
+        //     //redirect dengan pesan sukses
+        //     return redirect()->route('penyakit.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        // }else{
+        //     //redirect dengan pesan error
+        //     return redirect()->route('penyakit.index')->with(['error' => 'Data Gagal Disimpan!']);
+        // }
+
+    $this->validate($request, [
+        'kode_penyakit' => 'required',
+        'image'     => 'required|image|mimes:png,jpg,jpeg',
+        'penyakit'  => 'required',
+        'penyebab'  => 'required',
+        'solusi'    => 'required',
+    ]);
+
+    //upload image
+    $image = $request->file('image');
+    $image->storeAs('public/penyakit', $image->hashName());
+
+    $penyakit = Penyakit::create([
+        'kode_penyakit' => $request->kode_penyakit,
+        'image'     => $image->hashName(),
+        'penyakit' => $request->penyakit,
+        'penyebab' => $request->penyebab,
+        'solusi' => $request->solusi,
+    ]);
+
+    if($penyakit){
+        //redirect dengan pesan sukses
+        return redirect()->route('penyakit.index')->with(['success' => 'Data Berhasil Disimpan!']);
+    }else{
+        //redirect dengan pesan error
+        return redirect()->route('penyakit.index')->with(['error' => 'Data Gagal Disimpan!']);
     }
+}
 
     /**
      * Display the specified resource.
@@ -89,17 +136,69 @@ class PenyakitController extends Controller
      */
     public function update(Request $request, Penyakit $penyakit)
     {
-        $request->validate ([
+        // Storage::disk('local')->delete('public/penyakit/'.$penyakit->image);
+        // $image = $request->file('image');
+        // $image->storeAs('public/penyakit', $image->hashName());
+
+
+        // $penyakit->update([
+        //     'kode_penyakit' => 'required',
+        //     'image'     => $image->hashName(),
+        //     'penyakit' => 'required',
+        //     'penyebab' => 'required',
+        //     'solusi' => 'required',
+        // ]);
+
+        // $penyakit->update($request->all());
+
+        // return redirect()->route('penyakit.index')->with('succes','Gejala Berhasil di Update');
+        $this->validate($request, [
             'kode_penyakit' => 'required',
-            'penyakit' => 'required',
-            'penyebab' => 'required',
-            'solusi' => 'required',
+            'image'     => 'required',
+            'penyakit'  => 'required',
+            'penyebab'  => 'required',
+            'solusi'    => 'required',
         ]);
 
-        $penyakit->update($request->all());
+        //get data Blog by ID
+        $penyakit = Penyakit::findOrFail($penyakit->id);
 
-        return redirect()->route('penyakit.index')->with('succes','Gejala Berhasil di Update');
+        if($request->file('image') == "") {
 
+            $penyakit->update([
+                'kode_penyakit' => $request->kode_penyakit,
+                // 'image'     => $image->image,
+                'penyakit' => $request->penyakit,
+                'penyebab' => $request->penyebab,
+                'solusi' => $request->solusi,
+            ]);
+
+        } else {
+
+            //hapus old image
+            Storage::disk('local')->delete('public/penyakit/'.$penyakit->image);
+
+            //upload new image
+            $image = $request->file('image');
+            $image->storeAs('public/penyakit', $image->hashName());
+
+            $penyakit->update([
+                'kode_penyakit' => $request->kode_penyakit,
+                'image'     => $image->hashName(),
+                'penyakit' => $request->penyakit,
+                'penyebab' => $request->penyebab,
+                'solusi' => $request->solusi,
+            ]);
+
+        }
+
+        if($penyakit){
+            //redirect dengan pesan sukses
+            return redirect()->route('penyakit.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('penyakit.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**

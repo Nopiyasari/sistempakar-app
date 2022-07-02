@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Medilab Bootstrap Template - Index</title>
+    <title>Sipta-Indramayu</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -38,7 +38,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-        <h1 class="logo me-auto"><a href="index.html">Sistem Pakar</a></h1>
+        <h1 class="logo me-auto"><a href="/">Sistem Pakar</a></h1>
 
     @include('user.layouts.navbar')
 </header><!-- End Header -->

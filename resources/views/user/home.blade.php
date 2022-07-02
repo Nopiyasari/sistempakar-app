@@ -3,12 +3,12 @@
 
 <body>
 
-    <!-- ======= Hero Section ======= -->
+    {{-- <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
             <h1>Selamat datang di SIPTA</h1>
-            <h2>Cegahlah sebelum mengobati</h2>
-            <a href="/login" class="btn-get-started scrollto">Konsultasi Sekarang</a>
+            <h2>Gunakanlah sistem ini untuk melakukan diagnosa penyakit pada mata</h2>
+            <a href="/login" class="btn-get-started scrollto">Konsultasi Sekarang <i class=" me-2 bi bi-arrow-right-circle"></i></a>
         </div>
     </section><!-- End Hero -->
 
@@ -20,13 +20,28 @@
 
             </div>
 
-        </section><!-- End Why Us Section -->
+        </section><!-- End Why Us Section --> --}}
+
+        <section id="hero" class="d-flex align-items-center">
+            <div class="container"><div class="row">
+                <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
+                    <div>
+                        <h1>Selamat datang di SIPTA</h1>
+                        <h2>Gunakanlah sistem ini untuk melakukan diagnosa penyakit pada mata</h2>
+                        <a href="/login" class="btn-get-started scrollto">Konsultasi Sekarang <i class=" me-2 bi bi-arrow-right-circle"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img aos-init aos-animate" data-aos="fade-up">
+                    <img src="{{ asset('templateuser') }}/asset/img/home-bg.png" class="img-fluid" alt=""></div>
+                </div>
+            </div>
+        </section>
 
         <section id="about" class="about ">
             <div class="container mt-5">
 
                 <div class="section-title">
-                    <h2>Tentang</h2>
+                    <h2>Petunjuk Sistem Pakar</h2>
                 </div>
             </div>
             <div class="container-fluid">
@@ -46,25 +61,21 @@
                             konsultasi dapat dilakukan dimana saja tanpa harus pergi ke klinik atau rumah sakit.
                         </p>
                         <div class="icon-box">
-                            <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                                excepturi
-                                sint occaecati cupiditate non provident</p>
+                            <div class="icon"><i class="bi bi-person-plus"></i></div>
+                            <h4 class="title"><a href="">Daftar akun</a></h4>
+                            <p class="description">Jika belum mempunyai akun untuk melakukan proses diagnosa segera daftar akun melalui halaman daftar akun</p>
                         </div>
 
                         <div class="icon-box">
-                            <div class="icon"><i class="bx bx-gift"></i></div>
-                            <h4 class="title"><a href="">Nemo Enim</a></h4>
-                            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                                praesentium voluptatum deleniti atque</p>
+                            <div class="icon"><i class="bi bi-pencil-square"></i></div>
+                            <h4 class="title"><a href="">Mulai Diagnosa</a></h4>
+                            <p class="description">Setelah melakukan pendaftaran akun mulai diagnosa/konsultasi dengan akun yang anda punya</p>
                         </div>
 
                         <div class="icon-box">
-                            <div class="icon"><i class="bx bx-atom"></i></div>
-                            <h4 class="title"><a href="">Dine Pad</a></h4>
-                            <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit.
-                                Sunt aut deserunt minus aut eligendi omnis</p>
+                            <div class="icon"><i class="bi bi-journal-check"></i></div>
+                            <h4 class="title"><a href="">Hasil diagnosa</a></h4>
+                            <p class="description">Setelah melakukan diagnosa didapatkan hasil diagnosa yang diinginkan </p>
                         </div>
 
                     </div>
@@ -118,7 +129,7 @@
                 </div>
 
             </div>
-        </section><!-- End Counts Section --
+        </section><!-- End Counts Section -->
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">

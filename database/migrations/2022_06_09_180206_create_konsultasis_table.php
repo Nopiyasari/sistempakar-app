@@ -14,11 +14,11 @@ class CreateKonsultasisTable extends Migration
     public function up()
     {
         Schema::create('konsultasis', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nama');
             $table->string('email');
             $table->date('dob');
-            $table->text('alamat')->nullable();
+            $table->char('A1')->nullable();
             $table->timestamps();
         });
     }

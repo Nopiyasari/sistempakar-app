@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -17,8 +19,6 @@ class LoginController extends Controller
     public function index()
     {
         return view('admin.auth.login');
-
-
     }
 
     public function postlogin(Request $request)
@@ -27,11 +27,11 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'))){
             if(Auth::user()->level == 'admin'){
                 return redirect('admin');
-            } elseif(Auth::user()->level == 'user'){
-                return redirect('konsultasi');
+            } else if(Auth::user()->level == 'user'){
+                return redirect('/konsultasi');
             }
             else{
-                return redirect('login');
+                return redirect('/login');
             }
 
         }
@@ -124,6 +124,28 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/login');
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect('/');
+    }
+
+    public function updatePassword(ChangePasswordRequest $request)
+    {
+        $old_password   = auth()->user()->password;
+        $user_id        = auth()->user()->id;
+
+        if (Hash::check($request->input('old_password'), $old_password)) {
+            $user = User::findOrFail($user_id);
+
+            $user->password = Hash::make($request->input('password'));
+
+            if ($user->save()) {
+                return redirect('setting')->with('success', 'Password berhasil diubah');
+            } else {
+                return redirect('setting')->with('failed', 'Password lama invalid');
+            }
+        } else {
+            return redirect('setting')->with('failed', 'Password lama invalid');
+        }
     }
 }

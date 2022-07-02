@@ -16,6 +16,7 @@ class CreatePenyakitTable extends Migration
         Schema::create('penyakit', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kode_penyakit');
+            $table->string('image');
             $table->string('penyakit');
             $table->string('penyebab');
             $table->string('solusi');

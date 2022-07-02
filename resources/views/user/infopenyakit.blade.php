@@ -2,20 +2,23 @@
 @include('user.layouts.navbar')
 
 <!-- ======= Info Section ======= -->
-<section id="services" class="services">
+<section id="info" class="info">
     <div class="container mt-5">
-        @foreach ($questions as $question)
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-              <div class="card">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">{{ $question->penyakit }}</h5>
-                  <p class="card-text">{{ $question->penyebab }}</p>
-                </div>
-              </div>
-            </div>
+        <div class="section-title">
+                <h2>Info</h2>
+                <p>Berikut merupakan data penyakit mata</p>
         </div>
-        @endforeach
+        <div class="row g-0">
+            @foreach ($info as $infos)
+            <div class="card ms-4" style="width: 18rem;">
+                <img src="{{ Storage::url('penyakit/') . $infos->image }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $infos->penyakit }}</h5>
+                    <p class="card-text">{{ $infos->penyebab }}</p>
+                    {{-- <a href="" class="btn btn-primary">Go somewhere</a> --}}
+                </div>
+            </div>
+          @endforeach
+        </div>
     </div>
-</section><!-- End Services Section -->
+</section>

@@ -3,12 +3,12 @@
 
 <!-- ======= Contact Section ======= -->
 <section id="contact" class="contact">
-    <div class="container">
-
-        <div class="section-title">
-            <h2>Kontak</h2>
+        <div class="container mt-5">
+            <div class="section-title">
+                <h2>Kontak</h2>
+                <p>Berikut merupakan data penyakit mata</p>
+            </div>
         </div>
-    </div>
 
     <div>
         <iframe style="border:0; width: 100%; height: 350px;"
@@ -24,19 +24,19 @@
                     <div class="address">
                         <i class="bi bi-geo-alt"></i>
                         <h4>Location:</h4>
-                        <p>A108 Adam Street, New York, NY 535022</p>
+                        <p>Jl. Jend. Sudirman No.224, Karanganyar, Kec. Indramayu,Kabupaten Indramayu, Jawa Barat 45123</p>
                     </div>
 
                     <div class="email">
                         <i class="bi bi-envelope"></i>
                         <h4>Email:</h4>
-                        <p>info@example.com</p>
+                        <p>eyecenterindramayu@gmail.com</p>
                     </div>
 
                     <div class="phone">
                         <i class="bi bi-phone"></i>
                         <h4>Call:</h4>
-                        <p>+1 5589 55488 55s</p>
+                        <p>(0234) 7128243</p>
                     </div>
 
                     <div class="email">

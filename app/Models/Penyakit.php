@@ -9,6 +9,6 @@ class Penyakit extends Model
 {
     use HasFactory;
     protected $table= 'penyakit';
-    protected $fillable = ['kode_penyakit', 'penyakit', 'penyebab', 'solusi', 'created_at', 'updated_at'];
+    protected $fillable = ['kode_penyakit', 'image', 'penyakit', 'penyebab', 'solusi', 'created_at', 'updated_at'];
 
 }

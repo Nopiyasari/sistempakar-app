@@ -14,11 +14,24 @@
                     <div class="mb-3">
                         <label class="font-weight-bold">Kode Gejala</label>
                                 <select name="kode_gejala" class="form-select" aria-label="Default select example">
-                                    <option selected>--Pilih Kode Gejala--</option>
-                                    <option value="g01">G01</option>
-                                    <option value="g02">G02</option>
-                                    <option value="g03">G03</option>
-                                  </select>
+                                    <option value="G001">G001</option>
+                                    <option value="G002">G002</option>
+                                    <option value="G003">G003</option>
+                                    <option value="G004">G004</option>
+                                    <option value="G005">G005</option>
+                                    <option value="G006">G006</option>
+                                    <option value="G007">G007</option>
+                                    <option value="G008">G008</option>
+                                    <option value="G009">G009</option>
+                                    <option value="G010">G010</option>
+                                    <option value="G011">G011</option>
+                                    <option value="G012">G012</option>
+                                    <option value="G013">G013</option>
+                                    <option value="G014">G014</option>
+                                    <option value="G015">G015</option>
+                                    <option value="G016">G016</option>
+                                    <option value="G017">G017</option>
+                                </select>
                         <!-- error message untuk title -->
                         @error('kode_gejala')
                             <div class="alert alert-danger mt-2">
@@ -29,7 +42,13 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Gejala</label>
-                        <input required name="gejala" id="gejala" type="text" class="form-control" placeholder="Masukkan pertanyaan">
+                        <input required name="gejala" id="gejala" type="text" class="form-control" placeholder="Masukan Gejala">
+
+                        @error('gejala')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
@@ -37,6 +56,8 @@
                 </form>
             </div>
         </div>
+    </div>
+</div>
 
 @endsection
 
