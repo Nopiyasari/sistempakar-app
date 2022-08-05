@@ -16,7 +16,7 @@ class RegisterController extends Controller
      */
     public function register()
     {
-        return view('admin.auth.register');
+        return view('auth.register');
     }
 
     /**

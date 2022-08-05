@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +8,15 @@ class Penyakit extends Model
 {
     use HasFactory;
     protected $table= 'penyakit';
-    protected $fillable = ['kode_penyakit', 'image', 'penyakit', 'penyebab', 'solusi', 'created_at', 'updated_at'];
+
+    protected $fillable = [
+        'image',
+        'kd_penyakit',
+        'nama_penyakit',
+        'deskripsi',
+        'solusi',
+        'created_at',
+        'updated_at'
+    ];
 
 }

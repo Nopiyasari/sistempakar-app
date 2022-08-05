@@ -2,118 +2,112 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rule;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Penyakit;
+use App\Models\Gejala;
+use App\Models\Rule;
 
 class RuleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $rule = Rule::orderBy('id', 'ASC')->get();
-        // $rule->gejala
+        $data = Rule::with('penyakit','gejala')->orderBy('kd_penyakit', 'ASC')->get();
 
-        return view('admin.rule.index', (['rule' => $rule]));
+        return view('admin.rule.index',['rules'=>$data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        return view('admin.rule.create');
+        $penyakit = Penyakit::orderBy('kd_penyakit', 'ASC')->get();
+        $gejala   = Gejala::orderBy('kd_gejala', 'ASC')->get();
+
+        return view('admin.rule.create', compact('penyakit', 'gejala'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // dd($request);
-
-        $validateData = $request->validate([
-            'penyakit'     => 'required',
-            'gejala'     => 'required',
-
-        ]);
 
 
-        Rule::create($validateData);
+        $request->validate([
+            'penyakit' => 'required',
+            'gejala'    => 'required',
 
-        return redirect()->route('rule.index')->with('succes','Rule Berhasil di Input');
+         ]);
+
+
+        if(!$penyakit = Penyakit::where('id', $request->penyakit)->first()){
+
+            return redirect()->route('rule')->with('warning', 'Data Penyakit tidak ditemukan');
+        }
+
+        if(!$gejala = Gejala::where('id', $request->gejala)->first()){
+
+            return redirect()->route('rule')->with('warning', 'Data Gejala tidak ditemukan');
+        }
+
+        $data              = new Rule();
+        $data->kd_penyakit = $penyakit->kd_penyakit;
+        $data->kd_gejala   = $gejala->kd_gejala;
+        $data->save();
+
+        return redirect()->route('rule')->with('success','Berhasil menambahkan data');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $rule = Rule::findOrFail($id);
-        return view('admin.rule.edit', compact('rule'));
+        if(!$data  = Rule::find($id)){
+            return redirect()->route('rule')->with('warning', 'Data tidak ditemukan');
+        }
 
+        $penyakit = Penyakit::orderBy('kd_penyakit', 'ASC')->get();
+        $gejala   = Gejala::orderBy('kd_gejala', 'ASC')->get();
+
+        return view ('admin.rule.edit' ,compact('data','penyakit','gejala'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,Rule $rule)
+    public function update(Request $request, $id)
     {
+        if(!$data  = Rule::find($id)){
+            return redirect()->route('rule')->with('warning', 'Data tidak ditemukan');
+        }
+
+
         $request->validate([
-            'penyakit'     => 'required',
-            'gejala'     => 'required',
+            'penyakit' => 'required',
+            'gejala'    => 'required',
 
-        ]);
+         ]);
 
-        $rule->update($request->all());
+        if(!$penyakit = Penyakit::where('id', $request->penyakit)->first()){
 
-        return redirect()->route('rule$rule.index')->with('succes','rule$rule Berhasil di Update');
+            return redirect()->route('rule')->with('warning', 'Data Penyakit tidak ditemukan');
+        }
+
+        if(!$gejala = Gejala::where('id', $request->gejala)->first()){
+
+            return redirect()->route('rule')->with('warning', 'Data Gejala tidak ditemukan');
+        }
+
+        $data              = Rule::findOrFail($id);
+        $data->kd_penyakit = $penyakit->kd_penyakit;
+        $data->kd_gejala   = $gejala->kd_gejala;
+        $data->save();
+
+        return redirect()->route('rule')->with('success','Berhasil mengubah data');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $rule = Rule::findOrFail($id);
-        $rule->delete();
-
-        if($rule){
-            //redirect dengan pesan sukses
-            return redirect()->route('rule.index')->with(['success' => 'Data Berhasil Dihapus!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('rule.index')->with(['error' => 'Data Gagal Dihapus!']);
+        if(!$data  = Rule::find($id)){
+            return redirect()->route('rule')->with('warning', 'Data tidak ditemukan');
         }
+
+        $data->delete();
+
+        return redirect()->route('rule')->with('success','Berhasil menghapus data');
     }
 }

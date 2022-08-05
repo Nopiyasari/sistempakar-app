@@ -1,61 +1,64 @@
 @extends('admin.dashboard.layouts.main')
-@section('container')
+@include('admin.dashboard.layouts.navbar')
+@include('admin.dashboard.layouts.sidebar')
 
-
-<body style="background: lightgray">
-
-    <div class="container mt-5 mb-5">
-        <div class="row">
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Edit Rule</h4>
+            </div>
+            <div class="row">
             <div class="col-md-12">
-                <div class="card border-0 shadow rounded">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Edit Rule</div>
+                    </div>
                     <div class="card-body">
-                        <h4 class="mb-4 text-center">Tambah Pengetahuan</h4>
-                        <form action="{{route('pengetahuan.store')}}" method="POST">
-                            {{-- CSRF merupakan keamanan yang disediakan laravel  --}}
-                            @method('POST')
-                            @csrf
-
-                            <div class="form-group">
-                                <label class="font-weight-bold">Penyakit</label>
-                                <select name="penyakit" class="form-select" aria-label="Default select example">
-                                    <option selected>--Pilih Penyakit--</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                                <!-- error message untuk title -->
-                                @error('penyakit')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
+                        <div class="form-validation">
+                            <form class="form-valide" action="{{ route('rule.update', $data->id) }}" method="post">
+                                @csrf
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-username">Penyakit<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select name="penyakit" class="form-control" required>
+                                            <option value="">Pilih Penyakit</option>
+                                            @foreach ($penyakit as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($item->kd_penyakit == $data->kd_penyakit) SELECTED @endif>
+                                                    {{ $item->kd_penyakit }} - {{ $item->nama_penyakit }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                @enderror
-                            </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label class="font-weight-bold">Gejala</label>
-                                <select name="gejala"class="form-select" aria-label="Default select example">
-                                    <option selected>--Pilih Gejala--</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                                <!-- error message untuk gejala -->
-                                @error('gejala')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-username">Gejala<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select name="gejala" class="form-control" required>
+                                            <option value="">Pilih Gejala</option>
+                                            @foreach ($gejala as $item)
+                                                <option value="{{ $item->id }}"
+                                                    @if ($item->kd_gejala == $data->kd_gejala) SELECTED @endif>{{ $item->kd_gejala }}- {{ $item->gejala }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                @enderror
-                            </div>
+                                </div>
 
-                            <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-
-                        </form>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-outline-pink">Simpan</button>
+                                        <button type="submit" class="btn btn-outline-pink" onclick="window.history.back()">
+                                            Kembali</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-@endsection
 

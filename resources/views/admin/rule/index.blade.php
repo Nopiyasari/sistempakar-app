@@ -1,65 +1,92 @@
 @extends('admin.dashboard.layouts.main')
-@section('container')
+@include('admin.dashboard.layouts.navbar')
+@include('admin.dashboard.layouts.sidebar')
+@include('sweetalert::alert')
 
-    <body style="background: lightgray">
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded p-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h4 class="mb-4 fw-bold">Aturan</h4>
-                </div>
-                <div class="d-flex justify-content-start mb-4">
-                    <a href="{{ route('rule.create') }}" class="btn btn-primary"><i class="fa fa-plus me-2"></i>Tambah
-                        rule</a>
-                </div>
-                <table class="table table-bordered">
-                    <thead class="table-primary">
-                        <tr>
-                            <th style="text-align: center">ID</th>
-                            <th scope="col">PENYAKIT</th>
-                            <th scope="col">GEJALA</th>
-                            <th style="text-align: center">AKSI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($rule as $rule)
-                            <tr>
-                                <td style="text-align: center">{{ $loop->index+ 1 }}</td>
-                                <td>{{ $rule->penyakit }}</td>
-                                <td>{{ $rule->gejala }}</td>
-
-                                <td class="text-center">
-                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                        action="{{ route('rule.destroy', $rule->id) }}" method="POST">
-                                        <a href="{{ route('rule.edit', $rule->id) }}" class="btn btn-sm btn-success"><i
-                                                class="bi bi-pencil-fill"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"><i
-                                                class="bi bi-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <div class="alert alert-danger">
-                                Data rule belum Tersedia.
-                            </div>
-                        @endforelse
-                    </tbody>
-                </table>
+<div class="main-panel ">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Data Rule</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="admin">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Data</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Data Rule</a>
+                    </li>
+                </ul>
             </div>
-        </div>
+            <div class ="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Data Rule</h4>
+                    </div>
+                    <div class="d-flex justify-content-start mb-4 mt-4">
+                        <a href="{{ route('rule.create') }}" class="btn btn-primary btn-round ml-4"><i
+                                class="fa fa-plus mr-2"></i>Tambah
+                            rule</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="multi-filter-select" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">Id</th>
+                                        <th scope="col">Penyakit</th>
+                                        <th scope="col">Gejala</th>
+                                        <th style="text-align: center">AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th style="text-align: center">Id</th>
+                                        <th scope="col">Penyakit</th>
+                                        <th scope="col">Gejala</th>
+                                        <th style="text-align: center">Aksi</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @forelse ($rules as $rule)
+                                        <tr>
+                                            <td style="text-align: center">{{ $loop->index + 1 }}</td>
+                                            <td>{{ $rule->penyakit->nama_penyakit }}</td>
+                                            <td>{{ $rule->gejala->kd_gejala }}</td>
 
-
-        <script>
-            //message with toastr
-            @if (session()->has('success'))
-
-                toastr.success('{{ session('success') }}', 'BERHASIL!');
-            @elseif (session()->has('error'))
-
-                toastr.error('{{ session('error') }}', 'GAGAL!');
-            @endif
-        </script>
-
-    </body>
-@endsection
+                                            <td class="text-center">
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                                    action="{{ route('rule.destroy', $rule->id) }}" method="POST">
+                                                    <a href="{{ route('rule.edit', $rule->id) }}"
+                                                        class="btn btn-sm btn-success"><i
+                                                            class="fa fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                                            class="fa fa-times"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <div class="alert alert-danger">
+                                            Data rule belum Tersedia.
+                                        </div>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>

@@ -14,13 +14,14 @@ class CreatePenyakitTable extends Migration
     public function up()
     {
         Schema::create('penyakit', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('kode_penyakit');
+            $table->id();
             $table->string('image');
-            $table->string('penyakit');
-            $table->string('penyebab');
-            $table->string('solusi');
+            $table->string('kd_penyakit', 5);
+            $table->string('nama_penyakit', 100)->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->text('solusi')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

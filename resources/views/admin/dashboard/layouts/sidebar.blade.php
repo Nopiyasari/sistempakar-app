@@ -1,27 +1,85 @@
- <!-- Sidebar Start -->
- <div class="sidebar pe-4 pb-3">
-    <nav class="navbar bg-light navbar-light">
-        <a href="index.html" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary"></i><i class="fa fa-eye me-2"></i>Sistem Pakar</h3>
-        </a>
-        <div class="d-flex align-items-center ms-4 mb-4">
-            <div class="position-relative">
-                <img class="rounded-circle" src="{{ asset('templateadmin') }}/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+
+<div class="sidebar">
+
+    <div class="sidebar-background"></div>
+    <div class="sidebar-wrapper scrollbar-inner">
+        <div class="sidebar-content">
+            <div class="user">
+                <div class="avatar-sm float-left mr-2">
+                    <img src="{{ asset('azzara') }}/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                        <span>
+                            {{ auth()->user()->name }}
+                            <span class="user-level">Administrator</span>
+
+                        </span>
+                    </a>
+                    {{-- <div class="clearfix"></div> --}}
+                </div>
             </div>
-            <div class="ms-3">
-                <h6 class="mb-0">Jhon Doe</h6>
-                <span>Admin</span>
-            </div>
+            <ul class="nav">
+                <li class="nav-item active">
+                    <a href="admin">
+                        <i class="fas fa-home"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Data</h4>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#base">
+                        <i class="fa fa-users"></i>
+                        <p>Data Pengguna</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="data_admin">
+                                    <span class="sub-item">Data Admin</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="data_user">
+                                    <span class="sub-item">Data User</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="penyakit">
+                        <i class="fa fa-plus-square"></i>
+                        <p>Data Penyakit</p>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                    <a href="/gejala">
+                        <i class="fa fa-plus-square"></i>
+                        <p>Data Gejala</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="rule">
+                        <i class="fa fa-list-alt"></i>
+                        <p>Data Rule</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="log-konsultasi">
+                        <i class="far fa-chart-bar"></i>
+                        <p>Data Riwayat</p>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="navbar-nav w-100">
-            <a href="\admin" class="nav-item nav-link"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-            <a href="\user" class="nav-item nav-link"><i class="bi bi-person-badge me-2"></i>Data Pasien</a>
-            <a href="\penyakit" class="nav-item nav-link"><i class="bi bi-clipboard-plus me-2"></i>Data Penyakit</a>
-            <a href="\gejala" class="nav-item nav-link"><i class="bi bi-clipboard-plus me-2"></i>Data Gejala</a>
-            <a href="\rule" class="nav-item nav-link"><i class="bi bi-pencil-square me-2"></i>Rule</a>
-            <a href="\riwayat" class="nav-item nav-link"><i class="bi bi-journal-check me-2"></i>Riwayat Diagnosa</a>
-        </div>
-    </nav>
- </div>
-<!-- Sidebar End -->
+    </div>
+</div>
+<!-- End Sidebar -->

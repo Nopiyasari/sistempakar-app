@@ -1,74 +1,64 @@
 @extends('admin.dashboard.layouts.main')
-@section('container')
+@include('admin.dashboard.layouts.navbar')
+@include('admin.dashboard.layouts.sidebar')
 
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Tambah Gejala</h6>
-                    <form action="{{ route('rule.store') }}" method="POST">
-                        {{-- CSRF merupakan keamanan yang disediakan laravel --}}
-                        @method('POST')
-                        @csrf
-
-                        <div class="mb-3">
-                            <label class="font-weight-bold">Penyakit</label>
-                            <select name="penyakit" class="form-select" aria-label="Default select example">
-                                <option selected>--Pilih Penyakit--</option>
-                                <option value="P01-Katarak">P01 - Katarak</option>
-                                <option value="P02-Konjungtivitis">P02 - Konjungtivitis</option>
-                                <option value="P03-Keratitis">P03 - Keratitis</option>
-                                <option value="P04-Pteregium">P04 - Pteregium</option>
-                                <option value="P05-Dry Eyes">P05 - Dry Eyes</option>
-                                <option value="P06-Hordeolum">P06 - Hordeolum</option>
-                            </select>
-                            <!-- error message untuk title -->
-                            @error('penyakit')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Tambah Rule</h4>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tambah Rule</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide" action="{{ route('rule.store') }}" method="post">
+                                @csrf
+                                <div class="form-group row mt-2">
+                                    <label class="col-lg-4 col-form-label" for="val-username">Penyakit<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select name="penyakit" class="form-control" required>
+                                            <option value="">Pilih Penyakit</option>
+                                            @foreach ($penyakit as $item)
+                                                <option value="{{ $item->id }}">{{ $item->kd_penyakit }} -
+                                                    {{ $item->nama_penyakit }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            @enderror
-                        </div>
 
-                        <div class="mb-3">
-                            <label>Gejala yang dipilih</label><br />
-                            <select name="gejala" class="form-select" aria-label="Default select example">
-                                <option selected>--Pilih Gejala--</option>
-                                <option value="G001-Penglihatan kabur perlahan">G001 - Penglihatan kabur perlahan</option>
-                                <option value="G002-Silau">G002 - Silau</option>
-                                <option value="G003-Mata Merah">G003 - Mata Merah</option>
-                                <option value="G004-Nyeri">G004 - Nyeri</option>
-                                <option value="G005-Penglihatan berkabut(berasap)">G005 - Penglihatan berkabut(berasap)
-                                </option>
-                                <option value="G006-Gatal">G006 - Gatal</option>
-                                <option value="G007-Berair">G007 - Berair</option>
-                                <option value="G008-Belekan">G008 - Belekan</option>
-                                <option value="G009-Kelopak bengkak">G009 - Kelopak bengkak</option>
-                                <option value="G010-Terasa panas">G010 - Terasa panas</option>
-                                <option value="G011-Mengganjal">G011 - Mengganjal</option>
-                                <option value="G012-Lengket">G012-Lengket</option>
-                                <option value="G013-Merah jika terkena matahari">G013-Merah jika terkena matahari</option>
-                                <option value="G014-Tumbuh selaput pada mata">G014-Tumbuh selaput pada mata</option>
-                                <option value="G015-Usia diatas 50 tahun">G015-Usia diatas 50 tahun</option>
-                                <option value="G016-Kelopak mata tumbuh benjolan">G016-Kelopak mata tumbuh benjolan
-                                </option>
-                                <option value="G017-Perih">G017-Perih</option>
-                            </select>
-
-                            @error('gejala')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
+                                <div class="form-group row mt-2">
+                                    <label class="col-lg-4 col-form-label" for="val-username">Gejala<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select name="gejala" class="form-control" required>
+                                            <option value="">Pilih Gejala</option>
+                                            @foreach ($gejala as $item)
+                                                <option value="{{ $item->id }}">{{ $item->kd_gejala }} -
+                                                    {{ $item->gejala }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            @enderror
+
+                                <div class="col-lg-8 ml-auto mt-5">
+                                    <button type="submit" class="btn btn-warning">Simpan</button>
+                                    <button type="submit" class="btn btn-primary" onclick="window.history.back()">
+                                        Kembali</button>
+                                </div>
+                            </form>
                         </div>
-
-
-                            <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-@endsection
+
+
+
+

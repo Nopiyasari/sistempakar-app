@@ -18,7 +18,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return view('admin.auth.login');
+        return view('auth.login');
     }
 
     public function postlogin(Request $request)
@@ -28,7 +28,7 @@ class LoginController extends Controller
             if(Auth::user()->level == 'admin'){
                 return redirect('admin');
             } else if(Auth::user()->level == 'user'){
-                return redirect('/konsultasi');
+                return redirect('pasien');
             }
             else{
                 return redirect('/login');
@@ -40,7 +40,7 @@ class LoginController extends Controller
     }
 
     public function registrasi(){
-        return view('admin.auth.register');
+        return view('auth.register');
     }
 
     public function simpanregistrasi(Request $request)
@@ -49,9 +49,10 @@ class LoginController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'level' => 'user',
         ]);
 
-        return view('admin.auth.login');
+        return view('auth.login');
     }
 
 
@@ -146,6 +147,26 @@ class LoginController extends Controller
             }
         } else {
             return redirect('setting')->with('failed', 'Password lama invalid');
+        }
+    }
+
+        public function updatePasswordUser(ChangePasswordRequest $request)
+    {
+        $old_password   = auth()->user()->password;
+        $user_id        = auth()->user()->id;
+
+        if (Hash::check($request->input('old_password'), $old_password)) {
+            $user = User::findOrFail($user_id);
+
+            $user->password = Hash::make($request->input('password'));
+
+            if ($user->save()) {
+                return redirect('profil_user')->with('success', 'Password berhasil diubah');
+            } else {
+                return redirect('profil_user')->with('failed', 'Password lama invalid');
+            }
+        } else {
+            return redirect('profil_user')->with('failed', 'Password lama invalid');
         }
     }
 }

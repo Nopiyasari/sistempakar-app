@@ -18,8 +18,6 @@ class ProfilController extends Controller
     {
             // $data = array('title' => 'User Profil');
             return view('admin.profil.index');
-
-
     }
 
     public function setting() {
@@ -85,12 +83,12 @@ class ProfilController extends Controller
         $user = User::findOrFail($id);
         $user->update(array(
             'name' => $request->name,
-            // 'username' => $request->username,
             'email' => $request->email,
             'level' => $request->level,
         ));
 
         return redirect('profil');
+
     }
 
     /**

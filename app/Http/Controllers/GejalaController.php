@@ -1,121 +1,101 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gejala;
-
-use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class GejalaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $gejala = Gejala::orderBy('id', 'ASC')->get();
+        $data = Gejala::orderBy('kd_gejala', 'ASC')->get();
 
-        return view('admin.gejala.index', (['gejala' => $gejala]));
+
+        return view('admin.gejala.index', compact('data'));
     }
 
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('admin.gejala.create');
+        $kode = Gejala::select('kd_gejala')->orderBy('kd_gejala', 'desc')->first();
+
+
+        if ($kode != null) {
+            $pecah  = explode("G", $kode->kd_gejala);
+            $number = intval($pecah[1])+1;
+            if ($number <10) {
+                $kode   = "G0".$number;
+            }else{
+                $kode   = "G".$number;
+            }
+        }else{
+            $kode = "G01";
+        }
+
+
+        return view('admin.gejala.create', compact('kode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(request $request)
     {
-        $validateData = $request->validate([
-            'kode_gejala'     => 'required',
-            'gejala'     => 'required',
 
-        ]);
+        $request->validate([
+            'kd_gejala' => 'required',
+            'gejala'    => 'required',
 
+ 		]);
 
-        Gejala::create($validateData);
+        $data            = new Gejala;
+        $data->kd_gejala = $request->kd_gejala;
+        $data->gejala    = $request->gejala;
+        $data->save();
 
-        return redirect()->route('gejala.index')->with('succes','Gejala Berhasil di Input');
+        return redirect()->route('gejala')->with('success','Berhasil menambahkan data');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $gejala = Gejala::findOrFail($id);
-        return view('admin.gejala.edit', compact('gejala'));
+        if(!$data  = Gejala::find($id)){
+            return redirect()->route('gejala')->with('warning', 'Data tidak ditemukan');
+		}
+
+        return view ('admin.gejala.edit', compact('data'));
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Gejala $gejala)
+    public function update(request $request, $id)
     {
+        if(!$data  = Gejala::find($id)){
+            return redirect()->route('gejala')->with('warning', 'Data tidak ditemukan');
+        }
+
+
         $request->validate([
-            'kode_gejala'     => 'required',
-            'gejala'     => 'required',
+            'kd_gejala' => 'required',
+            'gejala'    => 'required',
 
-        ]);
+ 		]);
 
-        $gejala->update($request->all());
 
-        return redirect()->route('gejala.index')->with('succes','Gejala Berhasil di Update');
 
+        $data            = Gejala::findOrFail($id);
+        $data->kd_gejala = $request->kd_gejala;
+        $data->gejala    = $request->gejala;
+        $data->save();
+
+        return redirect()->route('gejala')->with('success','Berhasil memperbaharui data');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $gejala = Gejala::findOrFail($id);
-        $gejala->delete();
+        $data  = Gejala::findOrFail($id);
+        $data->delete();
 
-        if($gejala){
-            //redirect dengan pesan sukses
-            return redirect()->route('gejala.index')->with(['success' => 'Data Berhasil Dihapus!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('gejala.index')->with(['error' => 'Data Gagal Dihapus!']);
-        }
+        return redirect('/gejala')->with('success','Berhasil menghapus data');
+
     }
-
 }

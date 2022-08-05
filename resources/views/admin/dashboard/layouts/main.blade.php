@@ -1,67 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>SIPTA-ADMIN</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Admin Dashboard</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="{{ asset('azzara') }}/assets/img/icon.ico" type="image/x-icon"/>
 
+	<!-- Fonts and icons -->
+	<script src="{{ asset('azzara') }}/assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Open+Sans:300,400,600,700"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['{{ asset('azzara') }}/assets/css/fonts.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
 
-    <!-- Favicon -->
-    <link href="{{ asset('templateadmin') }}/img/eye.png" rel="icon">
-    <link href="{{ asset('templateadmin') }}/img/eye.png" rel="apple-touch-icon">
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="{{ asset('azzara') }}/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{ asset('azzara') }}/assets/css/azzara.min.css">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('templateadmin') }}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="{{ asset('templateadmin') }}/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('templateadmin') }}/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('templateadmin') }}/css/style.css" rel="stylesheet">
-
-
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="{{ asset('azzara') }}/assets/css/demo.css">
+    <link href="{{ asset('user') }}/profile/css/update.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
-        @include('admin.dashboard.layouts.sidebar')
-        <div class="content">
-            @include('admin.dashboard.layouts.navbar')
-            @yield('container')
-        </div>
-    </div>
 
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+	<div class="wrapper">
+		<!--
+			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
+		-->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/chart/chart.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/easing/easing.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/waypoints/waypoints.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="{{ asset('templateadmin') }}/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+			<!-- End Logo Header -->
 
-    <!-- Template Javascript -->
-    <script src="{{ asset('templateadmin') }}/js/main.js"></script>
+            <div class="main-panel">
+                <div class="content">
+                    @yield('content')
+                </div>
+            </div>
+            <div class="custom-template">
+                <div class="title">Settings</div>
+                <div class="custom-content">
+                    <div class="switcher">
+                        <div class="switch-block">
+                            <h4>Topbar</h4>
+                            <div class="btnSwitch">
+                                <button type="button" class="changeMainHeaderColor" data-color="blue"></button>
+                                <button type="button" class="selected changeMainHeaderColor" data-color="purple"></button>
+                                <button type="button" class="changeMainHeaderColor" data-color="light-blue"></button>
+                                <button type="button" class="changeMainHeaderColor" data-color="green"></button>
+                                <button type="button" class="changeMainHeaderColor" data-color="orange"></button>
+                                <button type="button" class="changeMainHeaderColor" data-color="red"></button>
+                            </div>
+                        </div>
+                        <div class="switch-block">
+                            <h4>Background</h4>
+                            <div class="btnSwitch">
+                                <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+                                <button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
+                                <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-toggle">
+                    <i class="flaticon-settings"></i>
+                </div>
+            </div>
 
+
+<!--   Core JS Files   -->
+<script src="{{ asset('azzara') }}/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="{{ asset('azzara') }}/assets/js/core/popper.min.js"></script>
+<script src="{{ asset('azzara') }}/assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="{{ asset('azzara') }}/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Moment JS -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/moment/moment.min.js"></script>
+
+<!-- Chart JS -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+<!-- Datatables -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/datatables/datatables.min.js"></script>
+
+<!-- Bootstrap Notify -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- Bootstrap Toggle -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+
+<!-- jQuery Vector Maps -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+<script src="{{ asset('azzara') }}/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+<!-- Google Maps Plugin -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/gmaps/gmaps.js"></script>
+
+<!-- Sweet Alert -->
+<script src="{{ asset('azzara') }}/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+<!-- Azzara JS -->
+<script src="{{ asset('azzara') }}/assets/js/ready.min.js"></script>
+
+<!-- Azzara DEMO methods, don't include it in your project! -->
+<script src="{{ asset('azzara') }}/assets/js/setting-demo.js"></script>
+<script src="{{ asset('azzara') }}/assets/js/demo.js"></script>
+<script >
+    $(document).ready(function() {
+        $('#basic-datatables').DataTable({
+        });
+
+        $('#multi-filter-select').DataTable( {
+            "pageLength": 5,
+            initComplete: function () {
+                this.api().columns().every( function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                            );
+
+                        column
+                        .search( val ? '^'+val+'$' : '', true, false )
+                        .draw();
+                    } );
+
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
+            }
+        });
+
+        // Add Row
+        $('#add-row').DataTable({
+            "pageLength": 5,
+        });
+
+        var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+        $('#addRowButton').click(function() {
+            $('#add-row').dataTable().fnAddData([
+                $("#addName").val(),
+                $("#addPosition").val(),
+                $("#addOffice").val(),
+                action
+                ]);
+            $('#addRowModal').modal('hide');
+
+        });
+    });
+</script>
 </body>
-
 </html>
-
